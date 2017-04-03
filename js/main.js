@@ -14,7 +14,7 @@
 	}
 
   var convierte=function(e){
-    if(input[0].value.length==0){
+    if(e.target.value.length==0){
      this.nextElementSibling.style.display="inline-block";
      this.nextElementSibling.innerText = "Este no puede estar vacio";
 
@@ -26,15 +26,29 @@
         datoConMayusculas += arrDato[i].charAt(0).toUpperCase() + arrDato[i].substring(1).toLowerCase() + " ";
       }
       this.value=datoConMayusculas.trim();
-      this.nextElementSibling.style.display="none";
+
       //this.nextElementSibling.innerText = " ";
     }
+}
 
-
-    }
-
+var validaCorreo=function(e){
+  if (e.target.value.length<6) {
+    this.nextElementSibling.style.display="inline-block";
+    this.nextElementSibling.innerText = "La contraseña debe contener al menos 6 caracteres";
+  }else {
+   this.nextElementSibling.style.display="none";
+  }
+  if(e.target.value=="password" || e.target.value=="123456"|| e.target.value=="098754" ){
+      this.nextElementSibling.style.display="none";
+      this.nextElementSibling.style.display="inline-block";
+      this.nextElementSibling.innerText = "Ingrese una contraseña diferente";
+  }
+}
 
 input[0].onkeypress=validaLetras;
 input[1].onkeypress=validaLetras;
 input[0].onblur=convierte;
+input[1].onblur=convierte;
+input[3].onblur=validaCorreo;
+
 //input[1].onblur=convierte;
