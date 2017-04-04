@@ -1,24 +1,25 @@
   var input = document.getElementsByTagName("input");
-  var opcion = document.getElementById("opcion");
+  var spans=document.getElementsByTagName("span");
+  var opcion = document.getElementById("opcion1");
+  var registrar=document.getElementById("registrar");
   var redexCorreo = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-  console.log(input);
   var validaLetras = function(e) {
       var codigoTecla = e.keyCode;
       if ((codigoTecla >= 97 && codigoTecla <= 122) || (codigoTecla >= 65 && codigoTecla <= 90) || codigoTecla == 39 || codigoTecla == 32) {
-          this.nextElementSibling.style.display = "none";
+          e.target.nextElementSibling.style.display = "none";
           //this.nextElementSibling.innerText = "";
           return true;
       } else {
-          this.nextElementSibling.style.display = "inline-block";
-          this.nextElementSibling.innerText = "Este campo solo permite letras";
+          e.target.nextElementSibling.style.display = "inline-block";
+          e.target.nextElementSibling.innerText = "Este campo solo permite letras";
           return false;
       }
   }
 
   var convierte = function(e) {
       if (e.target.value.length == 0) {
-          this.nextElementSibling.style.display = "inline-block";
-          this.nextElementSibling.innerText = "Este no puede estar vacio";
+          e.target.nextElementSibling.style.display = "inline-block";
+          e.target.nextElementSibling.innerText = "Este campo es requerido";
 
       } else if (this.getAttribute("type") == "text") {
           var arrDato = this.value.split(" ");
@@ -49,22 +50,51 @@
   var validaCorreo = function(e) {
 
       if (redexCorreo.test(e.target.value)) {
+         console.log("que pasa"+this.nextElementSibling.value);
           this.nextElementSibling.style.display = "none";
       } else {
+        console.log("que pasa"+this.nextElementSibling.innerText);
           this.nextElementSibling.style.display = "inline-block";
           this.nextElementSibling.innerText = "Ingrese un correo valido";
       }
   }
 
   var validaSeleccion = function(e) {
-      console.log(e.target.value);
-      if (e.target.value == 0) {
-          this.nextElementSibling.style.display = "inline-block";
-          this.nextElementSibling.innerText = "Debes seleccionar al menos un tipo de Bicicleta";
+      if (this.value == "") {
+          spans[4].style.display = "inline-block";
+              spans[4].innerText = "Debes seleccionar al menos un tipo de Bicicleta";
       } else {
-          this.nextElementSibling.style.display = "none"
+              spans[4].style.display = "none"
       }
   }
+
+  function validateForm(){
+    console.log(input.length);
+    for (var i = 0; i < 4; i++) {
+      if(input[i].value==""){
+        spans[i].style.display = "inline-block";
+        spans[i].innerText = " * Este campo es obligatorio ";
+      }
+    }
+    if(opcion.value == ""){
+      console.log("verdadero");
+      spans[4].style.display = "inline-block";
+      spans[4].innerText = "Este campo es requerido";
+    }else {
+      console.log("falso");
+     spans[4].style.display = "none";
+    }
+
+    if(spans[0].style.display=="none" &&spans[1].style.display=="none" && spans[2].style.display=="none"&&spans[3].style.display=="none"&&spans[4].style.display=="none"){
+      alert("SUS DATOS FUERON REGISTRADOS CORRECTAMENTE");
+      document.getElementById("formulario").reset();
+    } else {
+      alert("INGRESE CORRECTAMENTE LOS DATOS");
+      console.log("primero");
+    }
+
+  }
+
   input[0].onkeypress = validaLetras;
   input[0].onblur = convierte;
   input[1].onkeypress = validaLetras;
@@ -72,4 +102,3 @@
   input[2].onblur = validaCorreo;
   input[3].onblur = validaPass;
   opcion.onblur = validaSeleccion;
-  //input[1].onblur=convierte;
