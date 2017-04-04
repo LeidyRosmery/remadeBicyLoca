@@ -1,7 +1,7 @@
   var input = document.getElementsByTagName("input");
-  var spans=document.getElementsByTagName("span");
+  var spans = document.getElementsByTagName("span");
   var opcion = document.getElementById("opcion1");
-  var registrar=document.getElementById("registrar");
+  var registrar = document.getElementById("registrar");
   var redexCorreo = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
   var validaLetras = function(e) {
       var codigoTecla = e.keyCode;
@@ -50,10 +50,8 @@
   var validaCorreo = function(e) {
 
       if (redexCorreo.test(e.target.value)) {
-         console.log("que pasa"+this.nextElementSibling.value);
           this.nextElementSibling.style.display = "none";
       } else {
-        console.log("que pasa"+this.nextElementSibling.innerText);
           this.nextElementSibling.style.display = "inline-block";
           this.nextElementSibling.innerText = "Ingrese un correo valido";
       }
@@ -62,37 +60,30 @@
   var validaSeleccion = function(e) {
       if (this.value == "") {
           spans[4].style.display = "inline-block";
-              spans[4].innerText = "Debes seleccionar al menos un tipo de Bicicleta";
+          spans[4].innerText = "Debes seleccionar al menos un tipo de Bicicleta";
       } else {
-              spans[4].style.display = "none"
+          spans[4].style.display = "none"
       }
   }
 
-  function validateForm(){
-    console.log(input.length);
-    for (var i = 0; i < 4; i++) {
-      if(input[i].value==""){
-        spans[i].style.display = "inline-block";
-        spans[i].innerText = " * Este campo es obligatorio ";
+  function validateForm() {
+      for (var i = 0; i < 4; i++) {
+          if (input[i].value == "") {
+              spans[i].style.display = "inline-block";
+              spans[i].innerText = " * Este campo es obligatorio ";
+          }
       }
-    }
-    if(opcion.value == ""){
-      console.log("verdadero");
-      spans[4].style.display = "inline-block";
-      spans[4].innerText = "Este campo es requerido";
-    }else {
-      console.log("falso");
-     spans[4].style.display = "none";
-    }
+      if (opcion.value == "") {
+          spans[4].style.display = "inline-block";
+          spans[4].innerText = "Debes seleccionar al menos un tipo de Bicicleta";
+      } else {
+          spans[4].style.display = "none";
+      }
 
-    if(spans[0].style.display=="none" &&spans[1].style.display=="none" && spans[2].style.display=="none"&&spans[3].style.display=="none"&&spans[4].style.display=="none"){
-      alert("SUS DATOS FUERON REGISTRADOS CORRECTAMENTE");
-      document.getElementById("formulario").reset();
-    } else {
-      alert("INGRESE CORRECTAMENTE LOS DATOS");
-      console.log("primero");
-    }
-
+      if (spans[0].style.display == "none" && spans[1].style.display == "none" && spans[2].style.display == "none" && spans[3].style.display == "none" && spans[4].style.display == "none") {
+          alert("SUS DATOS FUERON REGISTRADOS CORRECTAMENTE");
+          document.getElementById("formulario").reset();
+      }
   }
 
   input[0].onkeypress = validaLetras;
